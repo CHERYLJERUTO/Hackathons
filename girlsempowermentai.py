@@ -1,7 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
 CORS(app)
@@ -14,6 +15,11 @@ db = mysql.connector.connect(
     database="girlsempowermentai"
 )
 cursor = db.cursor(dictionary=True)
+
+# render
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 # User Signup
 @app.route('/signup', methods=['POST'])
